@@ -22,4 +22,12 @@ export default class AuthService {
             console.error(e)
         }
     }
+
+    async logout(): Promise<{error?: string|null}> {
+        try {
+            return await $fetch('/api/logout', {method: 'POST'})
+        } catch (e) {
+            console.error(e)
+        }
+    }
 }

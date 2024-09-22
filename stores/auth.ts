@@ -5,7 +5,7 @@ import useNotify from "~/composables/use-notify";
 export const useAuthStore = defineStore('auth', {
     state: () => {
         return {
-            token: useCookie('token'),
+            token: useCookie('token') || null,
         }
     },
 
@@ -15,7 +15,14 @@ export const useAuthStore = defineStore('auth', {
         },
 
         async logout() {
+            const {error} = await (new AuthService()).logout();
+
+            if (error) {
+                useNotify('error', 'Logout', 'Erro ao deslogar!')
+            }
+
             this.token = null;
+            useNotify('success', 'Logout', 'Deslogado com sucesso')
         },
 
         async login(payload: { email: string, password: string }) {
