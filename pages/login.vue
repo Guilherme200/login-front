@@ -26,6 +26,9 @@
 import * as zod from 'zod';
 import {toTypedSchema} from '@vee-validate/zod';
 import {Form, Field, ErrorMessage} from 'vee-validate';
+import {useAuthStore} from '~/stores/auth';
+
+const authStore = useAuthStore();
 
 const validationSchema = toTypedSchema(
     zod.object({
@@ -34,7 +37,7 @@ const validationSchema = toTypedSchema(
     })
 );
 
-function onSubmit(values) {
-  alert(JSON.stringify(values, null, 2));
+async function onSubmit(values) {
+  await authStore.login(values);
 }
 </script>

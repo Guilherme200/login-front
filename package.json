@@ -11,8 +11,11 @@
   },
   "dependencies": {
     "@nuxtjs/tailwindcss": "^6.12.1",
+    "@pinia/nuxt": "^0.5.4",
+    "@supabase/supabase-js": "^2.45.4",
     "@vee-validate/zod": "^4.13.2",
     "nuxt": "^3.13.0",
+    "pinia": "^2.2.2",
     "vee-validate": "^4.13.2",
     "vue": "latest",
     "vue-router": "latest",
@@ -20,5 +23,12 @@
   },
   "devDependencies": {
     "daisyui": "^4.12.10"
+  },
+  "overrides": {
+    "vue": "latest"
+  },
+  "engines": {
+    "npm": ">=10.0.0",
+    "node": ">=20.0.0"
   }
 }
