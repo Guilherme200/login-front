@@ -14,6 +14,10 @@ export const useAuthStore = defineStore('auth', {
             this.token = type + ' ' + token
         },
 
+        async logout() {
+            this.token = null;
+        },
+
         async login(payload: { email: string, password: string }) {
             const {token, token_type, error} = await (new AuthService()).login(payload);
 
@@ -21,7 +25,6 @@ export const useAuthStore = defineStore('auth', {
                 await this.setToken(token_type, token)
                 useNotify('success', 'Login', 'Realizado com sucesso!')
             }
-
 
             if (!!error) {
                 useNotify('error', 'Login', 'Credenciais inválidas!')
