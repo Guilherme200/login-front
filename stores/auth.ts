@@ -1,5 +1,6 @@
 import {defineStore} from 'pinia'
 import AuthService from "~/services/api/AuthService";
+import useNotify from "~/composables/use-notify";
 
 export const useAuthStore = defineStore('auth', {
     state: () => {
@@ -18,9 +19,13 @@ export const useAuthStore = defineStore('auth', {
 
             if (token_type && token) {
                 await this.setToken(token_type, token)
+                useNotify('success', 'Login', 'Realizado com sucesso!')
             }
 
-            if (error) return error;
+
+            if (!!error) {
+                useNotify('error', 'Login', 'Credenciais inválidas!')
+            }
         }
     }
 })
