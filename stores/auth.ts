@@ -1,4 +1,5 @@
 import {defineStore} from 'pinia'
+import AuthService from "~/services/api/AuthService";
 
 export const useAuthStore = defineStore('auth', {
     state: () => {
@@ -13,23 +14,13 @@ export const useAuthStore = defineStore('auth', {
         },
 
         async login(payload: { email: string, password: string }) {
-            try {
-                const { data, error } = await $fetch('/api/login', {method: 'POST', body: payload})
+            const {token, token_type, error} = await (new AuthService()).login(payload);
 
-                if (data?.session && data?.user) {
-                    const token = data?.session?.access_token
-                    const token_type = data?.session?.token_type
-                    await this.setToken(token_type, token);
-                }
-
-                if (error?.code === 'invalid_credentials') {
-                    return {}
-                }
-
-                return {}
-            } catch (e) {
-                console.error(e)
+            if (token_type && token) {
+                await this.setToken(token_type, token)
             }
+
+            if (error) return error;
         }
     }
 })
