@@ -3,5 +3,8 @@
 </template>
 
 <script setup lang="ts">
-console.log('HOME')
+
+definePageMeta({
+  middleware: 'auth'
+})
 </script>

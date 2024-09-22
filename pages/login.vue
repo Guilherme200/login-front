@@ -39,5 +39,6 @@ const validationSchema = toTypedSchema(
 
 async function onSubmit(values) {
   await authStore.login(values);
+  navigateTo('/')
 }
 </script>
